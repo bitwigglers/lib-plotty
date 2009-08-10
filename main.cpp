@@ -16,13 +16,35 @@ int main(int argc, char *argv[])
 	settings.maxX = 10;
 	plotter.setPlotSettings(settings);
 
-	QVector<QPointF> vector;
+	QVector<QPointF> v1, v2, v3, v4, v5;
+
 	double x = -10;
 	while (x <= 10) {
-		vector.append(QPointF(x, sin(x) + 0.333 * sin (3 * x) + 0.2 *sin(5*x)));
+		double y = sin(x);
+		v1.append(QPointF(x, y));
+
+		y += 1.0/3.0 * sin(3.0 * x);
+		v2.append(QPointF(x, y));
+
+		y += 1.0/5.0 * sin(5.0 * x);
+		v3.append(QPointF(x, y));
+
+		y += 1.0/7.0 * sin(7.0 * x);
+		v4.append(QPointF(x, y));
+
+		y += 1.0/9.0 * sin(9.0 * x);
+		v5.append(QPointF(x, y));
+
 		x += 0.1;
 	}
-	plotter.setCurveData(0, vector);
+
+
+	plotter.setCurveData(0, v1);
+	plotter.setCurveData(1, v2);
+	plotter.setCurveData(2, v3);
+	plotter.setCurveData(3, v4);
+	plotter.setCurveData(4, v5);
+
 	plotter.setXUnit("s");
 	plotter.setYUnit("V");
 	plotter.show();
