@@ -11,10 +11,12 @@
 
 class QToolButton;
 class PlotSettings;
+class PlotterPrivate;
 
 class Plotter : public QWidget
 {
     Q_OBJECT
+	Q_PROPERTY(QString xUnit READ xUnit WRITE setXUnit RESET unsetXUnit)
 
 public:
 	Plotter(QWidget *parent = 0);
@@ -24,6 +26,13 @@ public:
 	void clearCurve(int id);
 	QSize minimumSizeHint() const;
 	QSize sizeHint() const;
+
+	QString xUnit();
+	void setXUnit(QString unit);
+	void unsetXUnit();
+	QString yUnit();
+	void setYUnit(QString unit);
+	void unsetYUnit();
 
 public slots:
 	void zoomIn();
@@ -55,6 +64,8 @@ private:
 	bool rubberBandIsShown;
 	QRect rubberBandRect;
 	QPixmap pixmap;
+
+	PlotterPrivate *d;
 };
 
 class PlotSettings
@@ -76,6 +87,14 @@ public:
 
 private:
 	static void adjustAxis(double &min, double &max, int &numTicks);
+};
+
+class PlotterPrivate
+{
+	PlotterPrivate();
+	QString xUnit;
+	QString yUnit;
+	friend class Plotter;
 };
 
 #endif // PLOTTER_H

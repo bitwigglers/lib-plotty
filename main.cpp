@@ -10,8 +10,8 @@ int main(int argc, char *argv[])
 
 	Plotter plotter;
 	PlotSettings settings;
-	settings.minY = -1;
-	settings.maxY = 1;
+	settings.minY = -2;
+	settings.maxY = 2;
 	settings.minX = - 10;
 	settings.maxX = 10;
 	plotter.setPlotSettings(settings);
@@ -19,10 +19,12 @@ int main(int argc, char *argv[])
 	QVector<QPointF> vector;
 	double x = -10;
 	while (x <= 10) {
-		vector.append(QPointF(x, sin(x)));
+		vector.append(QPointF(x, sin(x) + 0.333 * sin (3 * x) + 0.2 *sin(5*x)));
 		x += 0.1;
 	}
 	plotter.setCurveData(0, vector);
+	plotter.setXUnit("s");
+	plotter.setYUnit("V");
 	plotter.show();
 
 	return a.exec();

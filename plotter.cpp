@@ -7,6 +7,8 @@
 Plotter::Plotter(QWidget *parent)
     : QWidget(parent)
 {
+	d = new PlotterPrivate();
+
 	setBackgroundRole(QPalette::Dark);
 	setAutoFillBackground(true);
 	setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -237,6 +239,7 @@ void Plotter::drawGrid(QPainter *painter)
 	QPen quiteDark = palette().dark().color().light();
 	QPen light = palette().light().color();
 
+	//draw x grid and labels
 	for (int i = 0; i <= settings.numXTicks; ++i) {
 		int x = rect.left() + (i * (rect.width() - 1) / settings.numXTicks);
 		double label = settings.minX + (i * settings.spanX() / settings.numXTicks);
@@ -247,6 +250,12 @@ void Plotter::drawGrid(QPainter *painter)
 		painter->drawLine(x, rect.bottom(), x, rect.bottom() + 5);
 		painter->drawText(x - 50, rect.bottom() + 5, 100, 15, Qt::AlignHCenter | Qt::AlignTop, QString::number(label));
 	}
+
+	//draw unit string for x axis
+	int unitXPos = rect.right() - 0.5 * rect.width() / settings.numXTicks;
+	painter->drawText(unitXPos - 50, rect.bottom() + 5, 100, 15, Qt::AlignHCenter | Qt::AlignTop, d->xUnit);
+
+	//draw y grid and labels
 	for (int j = 0; j <= settings.numYTicks; ++j) {
 		int y = rect.bottom() - (j * (rect.height() - 1) / settings.numYTicks);
 		double label = settings.minY + (j * settings.spanY() / settings.numYTicks);
@@ -257,6 +266,10 @@ void Plotter::drawGrid(QPainter *painter)
 		painter->drawLine(rect.left() - 5, y, rect.left(), y);
 		painter->drawText(rect.left() - Margin, y - 10, Margin - 5, 20, Qt::AlignRight | Qt::AlignVCenter, QString::number(label));
 	}
+	// draw unit string for y axis
+	int unitYPos = rect.top() + 0.5 * rect.height() / settings.numYTicks;
+	painter->drawText(rect.left() - Margin, unitYPos - 10, Margin - 5, 20, Qt::AlignRight | Qt::AlignVCenter, d->yUnit);
+
 	painter->drawRect(rect.adjusted(0, 0, -1, -1));
 }
 
@@ -292,6 +305,35 @@ void Plotter::drawCurves(QPainter *painter)
 	}
 }
 
+QString Plotter::xUnit()
+{
+	return d->xUnit;
+}
+
+void Plotter::setXUnit(QString unit)
+{
+	d->xUnit = unit;
+}
+
+void Plotter::unsetXUnit()
+{
+	d->xUnit = "";
+}
+
+QString Plotter::yUnit()
+{
+	return d->yUnit;
+}
+
+void Plotter::setYUnit(QString unit)
+{
+	d->yUnit = unit;
+}
+
+void Plotter::unsetYUnit()
+{
+	d->yUnit = "";
+}
 
 PlotSettings::PlotSettings()
 {
@@ -341,8 +383,11 @@ void PlotSettings::adjustAxis(double &min, double &max, int &numTicks)
 	max = ceil(max / step) * step;
 }
 
-
-
+PlotterPrivate::PlotterPrivate()
+{
+	xUnit = "";
+	yUnit = "";
+}
 
 
 
