@@ -10,10 +10,9 @@
 #include <cmath>
 
 #include "plotsettings.h"
+#include "plotterprivate.h"
 
 class QToolButton;
-class PlotSettings;
-class PlotterPrivate;
 
 class Plotter : public QWidget
 {
@@ -70,12 +69,5 @@ private:
 	PlotterPrivate *d;
 };
 
-class PlotterPrivate
-{
-	PlotterPrivate();
-	QString xUnit;
-	QString yUnit;
-	friend class Plotter;
-};
 
 #endif // PLOTTER_H

@@ -334,11 +334,6 @@ void Plotter::unsetYUnit()
 	d->yUnit = "";
 }
 
-PlotterPrivate::PlotterPrivate()
-{
-	xUnit = "";
-	yUnit = "";
-}
 
 
 
