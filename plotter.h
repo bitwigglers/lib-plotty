@@ -21,6 +21,8 @@ class Plotter : public QWidget
 	Q_PROPERTY(QString xUnit READ xUnit WRITE setXUnit RESET unsetXUnit)
 	Q_PROPERTY(QString yUnit READ yUnit WRITE setYUnit RESET unsetYUnit)
 
+	Q_PROPERTY(bool antiAliasing READ antiAliasing WRITE setAntiAliasing)
+
 public:
 	Plotter(QWidget *parent = 0);
 
@@ -33,9 +35,13 @@ public:
 	QString xUnit();
 	void setXUnit(QString unit);
 	void unsetXUnit();
+
 	QString yUnit();
 	void setYUnit(QString unit);
 	void unsetYUnit();
+
+	bool antiAliasing();
+	void setAntiAliasing(bool);
 
 public slots:
 	void zoomIn();

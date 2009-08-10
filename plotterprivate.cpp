@@ -5,4 +5,5 @@ PlotterPrivate::PlotterPrivate()
 {
 	xUnit = "";
 	yUnit = "";
+	useAntiAliasing = true;
 }

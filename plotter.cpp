@@ -212,6 +212,7 @@ void Plotter::refreshPixmap()
 
 	QPainter painter(&pixmap);
 	painter.initFrom(this);
+	painter.setRenderHint(QPainter::Antialiasing, d->useAntiAliasing);
 	drawGrid(&painter);
 	drawCurves(&painter);
 	update();
@@ -328,6 +329,16 @@ void Plotter::unsetYUnit()
 	update();
 }
 
+bool Plotter::antiAliasing()
+{
+	return d->useAntiAliasing;
+}
+
+void Plotter::setAntiAliasing(bool useAntiAliasing)
+{
+	d->useAntiAliasing = useAntiAliasing;
+	refreshPixmap();
+}
 
 
 

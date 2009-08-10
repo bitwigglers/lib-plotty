@@ -8,6 +8,9 @@ class PlotterPrivate
 	PlotterPrivate();
 	QString xUnit;
 	QString yUnit;
+
+	bool useAntiAliasing;
+
 	friend class Plotter;
 };
 
