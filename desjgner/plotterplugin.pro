@@ -6,6 +6,7 @@ INCLUDEPATH += ../
 DEPENDPATH += ../
 HEADERS = plotter.h plotsettings.h plotterprivate.h plotterplugin.h
 SOURCES = plotter.cpp plotsettings.cpp plotterprivate.cpp plotterplugin.cpp
+RESOURCES += plotter.qrc
 target.path = $$[QT_INSTALL_PLUGINS]/designer
 sources.files = $$SOURCES $$HEADERS *.pro
 sources.path = $$[QT_INSTALL_EXAMPLES]/designer/plotterplugin
