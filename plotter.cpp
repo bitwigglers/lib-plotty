@@ -8,11 +8,12 @@ Plotter::Plotter(QWidget *parent)
 {
 	d = new PlotterPrivate();
 
+	rubberBand = NULL;
+
 	setBackgroundRole(QPalette::Dark);
 	setAutoFillBackground(true);
 	setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 	setFocusPolicy(Qt::StrongFocus);
-	rubberBandIsShown = false;
 
 	zoomInButton = new QToolButton(this);
 	zoomInButton->setIcon(QIcon(":/images/zoomin.png"));
@@ -86,11 +87,6 @@ void Plotter::paintEvent(QPaintEvent *)
 	QStylePainter painter(this);
 	painter.drawPixmap(0, 0, pixmap);
 
-	if (rubberBandIsShown) {
-		painter.setPen(palette().light().color());
-		painter.drawRect(rubberBandRect.normalized().adjusted(0, 0, -1, -1));
-	}
-
 	if (hasFocus()) {
 		QStyleOptionFocusRect option;
 		option.initFrom(this);
@@ -113,10 +109,11 @@ void Plotter::mousePressEvent(QMouseEvent *event)
 
 	if (event->button() == Qt::LeftButton) {
 		if (rect.contains(event->pos())) {
-			rubberBandIsShown = true;
-			rubberBandRect.setTopLeft(event->pos());
-			rubberBandRect.setBottomRight(event->pos());
-			updateRubberBandRegion();
+			rubberBandOrigin = event->pos();
+			if (!rubberBand)
+				rubberBand = new QRubberBand(QRubberBand::Rectangle, this);
+			rubberBand->setGeometry(QRect(rubberBandOrigin, QSize()));
+			rubberBand->show();
 			setCursor(Qt::CrossCursor);
 		}
 	}
@@ -126,23 +123,20 @@ void Plotter::mousePressEvent(QMouseEvent *event)
 
 void Plotter::mouseMoveEvent(QMouseEvent *event)
 {
-	if (rubberBandIsShown) {
-		updateRubberBandRegion();
-		rubberBandRect.setBottomRight(event->pos());
-		updateRubberBandRegion();
-	}
+	QRect rect(Margin, Margin, width() - 2 * Margin, height() - 2 * Margin);
+	rubberBand->setGeometry(QRect(rubberBandOrigin, event->pos()).normalized().intersected(rect));
 }
 
 void Plotter::mouseReleaseEvent(QMouseEvent *event)
 {
-	if ((event->button() == Qt::LeftButton) && rubberBandIsShown) {
-		rubberBandIsShown = false;
-		updateRubberBandRegion();
+	if (event->button() == Qt::LeftButton) {
 		unsetCursor();
 
-		QRect rect = rubberBandRect.normalized();
+		QRect rect = rubberBand->geometry().normalized();
 		if (rect.width() < 4 || rect.height() < 4)
 			return;
+
+		rubberBand->hide();
 
 		rect.translate(-Margin, -Margin);
 
@@ -204,15 +198,6 @@ void Plotter::wheelEvent(QWheelEvent *event)
 		zoomStack[curZoom].scroll(0, numTicks);
 
 	refreshPixmap();
-}
-
-void Plotter::updateRubberBandRegion()
-{
-	QRect rect = rubberBandRect.normalized();
-	update(rect.left(), rect.top(), rect.width(), 1);
-	update(rect.left(), rect.top(), 1, rect.height());
-	update(rect.left(), rect.bottom(), rect.width(), 1);
-	update(rect.right(), rect.top(), 1, rect.height());
 }
 
 void Plotter::refreshPixmap()

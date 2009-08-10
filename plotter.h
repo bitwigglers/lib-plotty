@@ -5,6 +5,7 @@
 #include <QPixmap>
 #include <QVector>
 #include <QWidget>
+#include <QRubberBand>
 
 #include <QTimer>
 #include <cmath>
@@ -51,7 +52,6 @@ protected:
 	void wheelEvent(QWheelEvent *event);
 
 private:
-	void updateRubberBandRegion();
 	void refreshPixmap();
 	void drawGrid(QPainter *painter);
 	void drawCurves(QPainter *painter);
@@ -63,8 +63,12 @@ private:
 	QMap<int, QVector<QPointF> > curveMap;
 	QVector<PlotSettings> zoomStack;
 	int curZoom;
-	bool rubberBandIsShown;
-	QRect rubberBandRect;
+
+	//bool rubberBandIsShown;
+	//QRect rubberBandRect;
+	QRubberBand *rubberBand;
+	QPoint rubberBandOrigin;
+
 	QPixmap pixmap;
 
 	PlotterPrivate *d;
