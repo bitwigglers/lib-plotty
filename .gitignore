@@ -12,3 +12,5 @@
 /desjgner/release/moc_plotter.cpp
 /desjgner/release/moc_plotterplugin.cpp
 /desjgner/release/plotterplugin.dll
+/desjgner/release/qrc_plotter.cpp
+/desjgner/release/qrc_plotterplugin.cpp

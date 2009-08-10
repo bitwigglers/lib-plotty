@@ -40,7 +40,7 @@ QString PlotterPlugin::group() const
 
 QIcon PlotterPlugin::icon() const
 {
-    return QIcon();
+	return QIcon(":/images/kmplot.png");
 }
 
 QString PlotterPlugin::toolTip() const

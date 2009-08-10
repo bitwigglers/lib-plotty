@@ -1,13 +1,25 @@
-CONFIG += designer plugin release
+CONFIG += designer \
+    plugin \
+    release
 TARGET = $$qtLibraryTarget($$TARGET)
 TEMPLATE = lib
 QTDIR_build:DESTDIR = $$QT_BUILD_TREE/plugins/designer
 INCLUDEPATH += ../
 DEPENDPATH += ../
-HEADERS = plotter.h plotsettings.h plotterprivate.h plotterplugin.h
-SOURCES = plotter.cpp plotsettings.cpp plotterprivate.cpp plotterplugin.cpp
-RESOURCES += plotter.qrc
+HEADERS = plotter.h \
+    plotsettings.h \
+    plotterprivate.h \
+    plotterplugin.h
+SOURCES = plotter.cpp \
+    plotsettings.cpp \
+    plotterprivate.cpp \
+    plotterplugin.cpp
+RESOURCES += plotter.qrc \
+    plotterplugin.qrc
 target.path = $$[QT_INSTALL_PLUGINS]/designer
-sources.files = $$SOURCES $$HEADERS *.pro
+sources.files = $$SOURCES \
+    $$HEADERS \
+    *.pro
 sources.path = $$[QT_INSTALL_EXAMPLES]/designer/plotterplugin
-INSTALLS += target sources
+INSTALLS += target \
+    sources
