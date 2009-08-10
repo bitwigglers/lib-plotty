@@ -17,12 +17,12 @@ Plotter::Plotter(QWidget *parent)
 
 	zoomInButton = new QToolButton(this);
 	zoomInButton->setIcon(QIcon(":/images/zoomin.png"));
-	zoomInButton->adjustSize();
+	zoomInButton->setFixedSize(32, 32);
 	connect(zoomInButton, SIGNAL(clicked()), this, SLOT(zoomIn()));
 
 	zoomOutButton = new QToolButton(this);
 	zoomOutButton->setIcon(QIcon(":/images/zoomout.png"));
-	zoomOutButton->adjustSize();
+	zoomOutButton->setFixedSize(32, 32);
 	connect(zoomOutButton, SIGNAL(clicked()), this, SLOT(zoomOut()));
 
 	setPlotSettings(PlotSettings());

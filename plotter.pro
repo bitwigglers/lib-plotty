@@ -10,3 +10,4 @@ SOURCES += main.cpp \
 HEADERS += plotter.h \
     plotsettings.h \
     plotterprivate.h
+RESOURCES += plotter.qrc
