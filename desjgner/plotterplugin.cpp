@@ -70,10 +70,10 @@ QString PlotterPlugin::domXml() const
            "  </rect>\n"
            " </property>\n"
            " <property name=\"toolTip\" >\n"
-           "  <string>Battery Meter</string>\n"
+		   "  <string>a data plotter widget</string>\n"
            " </property>\n"
            " <property name=\"whatsThis\" >\n"
-           "  <string>a plotter widget</string>\n"
+		   "  <string>a data plotter widget</string>\n"
            " </property>\n"
            " </widget>\n";
 }
