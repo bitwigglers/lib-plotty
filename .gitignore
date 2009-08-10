@@ -4,3 +4,11 @@
 /Makefile*
 *.o
 *.user
+
+/desjgner/Makefile
+/desjgner/Makefile.Debug
+/desjgner/Makefile.Release
+/desjgner/release/libplotterplugin.a
+/desjgner/release/moc_plotter.cpp
+/desjgner/release/moc_plotterplugin.cpp
+/desjgner/release/plotterplugin.dll
