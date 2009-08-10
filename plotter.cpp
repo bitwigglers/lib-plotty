@@ -8,7 +8,8 @@ Plotter::Plotter(QWidget *parent)
 {
 	d = new PlotterPrivate();
 
-	rubberBand = NULL;
+	rubberBand = new QRubberBand(QRubberBand::Rectangle, this);
+	rubberBandOrigin = QPoint(-1, -1);
 
 	setBackgroundRole(QPalette::Dark);
 	setAutoFillBackground(true);
@@ -110,8 +111,6 @@ void Plotter::mousePressEvent(QMouseEvent *event)
 	if (event->button() == Qt::LeftButton) {
 		if (rect.contains(event->pos())) {
 			rubberBandOrigin = event->pos();
-			if (!rubberBand)
-				rubberBand = new QRubberBand(QRubberBand::Rectangle, this);
 			rubberBand->setGeometry(QRect(rubberBandOrigin, QSize()));
 			rubberBand->show();
 			setCursor(Qt::CrossCursor);
@@ -124,7 +123,8 @@ void Plotter::mousePressEvent(QMouseEvent *event)
 void Plotter::mouseMoveEvent(QMouseEvent *event)
 {
 	QRect rect(Margin, Margin, width() - 2 * Margin, height() - 2 * Margin);
-	rubberBand->setGeometry(QRect(rubberBandOrigin, event->pos()).normalized().intersected(rect));
+	if (rect.contains(rubberBandOrigin))
+		rubberBand->setGeometry(QRect(rubberBandOrigin, event->pos()).normalized().intersected(rect));
 }
 
 void Plotter::mouseReleaseEvent(QMouseEvent *event)
@@ -132,11 +132,16 @@ void Plotter::mouseReleaseEvent(QMouseEvent *event)
 	if (event->button() == Qt::LeftButton) {
 		unsetCursor();
 
+		// if the user started drawing the rubberband outside of the margin, we do not want to zoom
+		if (!(QRect(Margin, Margin, width() - 2 * Margin, height() - 2 * Margin).contains(rubberBandOrigin)))
+			return;
+
 		QRect rect = rubberBand->geometry().normalized();
 		if (rect.width() < 4 || rect.height() < 4)
 			return;
 
 		rubberBand->hide();
+		rubberBandOrigin = QPoint(-1, -1);
 
 		rect.translate(-Margin, -Margin);
 
