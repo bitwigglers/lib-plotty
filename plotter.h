@@ -18,6 +18,7 @@ class Plotter : public QWidget
 {
     Q_OBJECT
 	Q_PROPERTY(QString xUnit READ xUnit WRITE setXUnit RESET unsetXUnit)
+	Q_PROPERTY(QString yUnit READ yUnit WRITE setYUnit RESET unsetYUnit)
 
 public:
 	Plotter(QWidget *parent = 0);

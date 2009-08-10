@@ -312,11 +312,13 @@ QString Plotter::xUnit()
 void Plotter::setXUnit(QString unit)
 {
 	d->xUnit = unit;
+	update();
 }
 
 void Plotter::unsetXUnit()
 {
 	d->xUnit = "";
+	update();
 }
 
 QString Plotter::yUnit()
@@ -327,11 +329,13 @@ QString Plotter::yUnit()
 void Plotter::setYUnit(QString unit)
 {
 	d->yUnit = unit;
+	update();
 }
 
 void Plotter::unsetYUnit()
 {
 	d->yUnit = "";
+	update();
 }
 
 
