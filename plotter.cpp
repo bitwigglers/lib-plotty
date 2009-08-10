@@ -75,12 +75,12 @@ void Plotter::clearCurve(int id)
 
 QSize Plotter::minimumSizeHint() const
 {
-	return QSize(6 * Margin, 4 * Margin);
+	return QSize(6 * d->margin, 4 * d->margin);
 }
 
 QSize Plotter::sizeHint() const
 {
-	return QSize(12 * Margin, 8 * Margin);
+	return QSize(12 * d->margin, 8 * d->margin);
 }
 
 void Plotter::paintEvent(QPaintEvent *)
@@ -106,7 +106,7 @@ void Plotter::resizeEvent(QResizeEvent *)
 
 void Plotter::mousePressEvent(QMouseEvent *event)
 {
-	QRect rect(Margin, Margin, width() - 2 * Margin, height() - 2 * Margin);
+	QRect rect(d->margin, d->margin, width() - 2 * d->margin, height() - 2 * d->margin);
 
 	if (event->button() == Qt::LeftButton) {
 		if (rect.contains(event->pos())) {
@@ -122,7 +122,7 @@ void Plotter::mousePressEvent(QMouseEvent *event)
 
 void Plotter::mouseMoveEvent(QMouseEvent *event)
 {
-	QRect rect(Margin, Margin, width() - 2 * Margin, height() - 2 * Margin);
+	QRect rect(d->margin, d->margin, width() - 2 * d->margin, height() - 2 * d->margin);
 	if (rect.contains(rubberBandOrigin))
 		rubberBand->setGeometry(QRect(rubberBandOrigin, event->pos()).normalized().intersected(rect));
 }
@@ -133,7 +133,7 @@ void Plotter::mouseReleaseEvent(QMouseEvent *event)
 		unsetCursor();
 
 		// if the user started drawing the rubberband outside of the margin, we do not want to zoom
-		if (!(QRect(Margin, Margin, width() - 2 * Margin, height() - 2 * Margin).contains(rubberBandOrigin)))
+		if (!(QRect(d->margin, d->margin, width() - 2 * d->margin, height() - 2 * d->margin).contains(rubberBandOrigin)))
 			return;
 
 		QRect rect = rubberBand->geometry().normalized();
@@ -143,12 +143,12 @@ void Plotter::mouseReleaseEvent(QMouseEvent *event)
 		rubberBand->hide();
 		rubberBandOrigin = QPoint(-1, -1);
 
-		rect.translate(-Margin, -Margin);
+		rect.translate(-d->margin, -d->margin);
 
 		PlotSettings prevSettings = zoomStack[curZoom];
 		PlotSettings settings;
-		double dx = prevSettings.spanX() / (width() - 2 * Margin);
-		double dy = prevSettings.spanY() / (height() - 2 * Margin);
+		double dx = prevSettings.spanX() / (width() - 2 * d->margin);
+		double dy = prevSettings.spanY() / (height() - 2 * d->margin);
 
 		settings.minX = prevSettings.minX + dx * rect.left();
 		settings.maxX = prevSettings.minX + dx * rect.right();
@@ -220,7 +220,7 @@ void Plotter::refreshPixmap()
 
 void Plotter::drawGrid(QPainter *painter)
 {
-	QRect rect(Margin, Margin, width() - 2 * Margin, height() - 2 * Margin);
+	QRect rect(d->margin, d->margin, width() - 2 * d->margin, height() - 2 * d->margin);
 
 	if (!rect.isValid())
 		return;
@@ -254,11 +254,11 @@ void Plotter::drawGrid(QPainter *painter)
 		painter->drawLine(rect.left(), y, rect.right(), y);
 		painter->setPen(light);
 		painter->drawLine(rect.left() - 5, y, rect.left(), y);
-		painter->drawText(rect.left() - Margin, y - 10, Margin - 5, 20, Qt::AlignRight | Qt::AlignVCenter, QString::number(label));
+		painter->drawText(rect.left() - d->margin, y - 10, d->margin - 5, 20, Qt::AlignRight | Qt::AlignVCenter, QString::number(label));
 	}
 	// draw unit string for y axis
 	int unitYPos = rect.top() + 0.5 * rect.height() / settings.numYTicks;
-	painter->drawText(rect.left() - Margin, unitYPos - 10, Margin - 5, 20, Qt::AlignRight | Qt::AlignVCenter, d->yUnit);
+	painter->drawText(rect.left() - d->margin, unitYPos - 10, d->margin - 5, 20, Qt::AlignRight | Qt::AlignVCenter, d->yUnit);
 
 	painter->drawRect(rect.adjusted(0, 0, -1, -1));
 }
@@ -269,7 +269,7 @@ void Plotter::drawCurves(QPainter *painter)
 		Qt::red, Qt::green, Qt::blue, Qt::cyan, Qt::magenta, Qt::yellow};
 
 	PlotSettings settings = zoomStack[curZoom];
-	QRect rect(Margin, Margin, width() - 2 * Margin, height() - 2 * Margin);
+	QRect rect(d->margin, d->margin, width() - 2 * d->margin, height() - 2 * d->margin);
 	if (!rect.isValid())
 		return;
 
@@ -340,6 +340,16 @@ void Plotter::setAntiAliasing(bool useAntiAliasing)
 	refreshPixmap();
 }
 
+uint Plotter::margin()
+{
+	return d->margin;
+}
+
+void Plotter::setMargin(uint margin)
+{
+	d->margin = margin;
+	refreshPixmap();
+}
 
 
 

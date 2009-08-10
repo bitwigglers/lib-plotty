@@ -10,6 +10,7 @@ class PlotterPrivate
 	QString yUnit;
 
 	bool useAntiAliasing;
+	uint margin;
 
 	friend class Plotter;
 };

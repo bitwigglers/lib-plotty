@@ -21,6 +21,8 @@ class Plotter : public QWidget
 	Q_PROPERTY(QString xUnit READ xUnit WRITE setXUnit RESET unsetXUnit)
 	Q_PROPERTY(QString yUnit READ yUnit WRITE setYUnit RESET unsetYUnit)
 
+	Q_PROPERTY(uint margin READ margin WRITE setMargin)
+
 	Q_PROPERTY(bool antiAliasing READ antiAliasing WRITE setAntiAliasing)
 
 public:
@@ -43,6 +45,9 @@ public:
 	bool antiAliasing();
 	void setAntiAliasing(bool);
 
+	uint margin();
+	void setMargin(uint);
+
 public slots:
 	void zoomIn();
 	void zoomOut();
@@ -61,8 +66,6 @@ private:
 	void refreshPixmap();
 	void drawGrid(QPainter *painter);
 	void drawCurves(QPainter *painter);
-
-	enum {Margin = 50};
 
 	QToolButton *zoomInButton;
 	QToolButton *zoomOutButton;
