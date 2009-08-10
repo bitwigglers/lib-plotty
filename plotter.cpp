@@ -303,13 +303,13 @@ QString Plotter::xUnit()
 void Plotter::setXUnit(QString unit)
 {
 	d->xUnit = unit;
-	update();
+	refreshPixmap();
 }
 
 void Plotter::unsetXUnit()
 {
 	d->xUnit = "";
-	update();
+	refreshPixmap();
 }
 
 QString Plotter::yUnit()
@@ -320,13 +320,13 @@ QString Plotter::yUnit()
 void Plotter::setYUnit(QString unit)
 {
 	d->yUnit = unit;
-	update();
+	refreshPixmap();
 }
 
 void Plotter::unsetYUnit()
 {
 	d->yUnit = "";
-	update();
+	refreshPixmap();
 }
 
 bool Plotter::antiAliasing()
