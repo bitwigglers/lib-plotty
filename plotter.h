@@ -2,18 +2,16 @@
 #define PLOTTER_H
 
 #include <QMap>
-#include <QPixmap>
-#include <QVector>
 #include <QWidget>
-#include <QRubberBand>
-
-#include <QTimer>
 #include <cmath>
 
 #include "plotsettings.h"
 #include "plotterprivate.h"
-
+class QPixmap;
+class QRubberBand;
+class QTimer;
 class QToolButton;
+class QWidget;
 
 class Plotter : public QWidget
 {
@@ -73,8 +71,6 @@ private:
 	QVector<PlotSettings> zoomStack;
 	int curZoom;
 
-	//bool rubberBandIsShown;
-	//QRect rubberBandRect;
 	QRubberBand *rubberBand;
 	QPoint rubberBandOrigin;
 
