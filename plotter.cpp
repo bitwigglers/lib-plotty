@@ -198,6 +198,11 @@ void Plotter::keyPressEvent(QKeyEvent *event)
 	}
 }
 
+void Plotter::updatePlot()
+{
+	refreshPixmap();
+}
+
 void Plotter::wheelEvent(QWheelEvent *event)
 {
 	int numDegrees = event->delta() / 8;

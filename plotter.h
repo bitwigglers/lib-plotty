@@ -52,7 +52,7 @@ public:
 public slots:
 	void zoomIn();
 	void zoomOut();
-	void updatePlot() {refreshPixmap();}
+	void updatePlot();
 
 protected:
 	void paintEvent(QPaintEvent *event);
