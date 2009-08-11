@@ -30,6 +30,11 @@ Plotter::Plotter(QWidget *parent)
 	setPlotSettings(PlotSettings());
 }
 
+Plotter::~Plotter()
+{
+	delete d;
+}
+
 void Plotter::setPlotSettings(const PlotSettings &settings)
 {
 	zoomStack.clear();
