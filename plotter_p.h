@@ -5,14 +5,13 @@
 
 class PlotterPrivate
 {
+public:
 	PlotterPrivate();
 	QString xUnit;
 	QString yUnit;
 
 	bool useAntiAliasing;
 	uint margin;
-
-	friend class Plotter;
 };
 
 #endif // PLOTTERPRIVATE_H

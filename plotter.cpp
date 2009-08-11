@@ -2,7 +2,7 @@
 #include <QtGui>
 
 #include "plotter.h"
-#include "plotterprivate.h"
+#include "plotter_p.h"
 
 Plotter::Plotter(QWidget *parent)
     : QWidget(parent)
@@ -352,6 +352,16 @@ void Plotter::setMargin(uint margin)
 	refreshPixmap();
 }
 
+
+/************************************************************/
+
+PlotterPrivate::PlotterPrivate()
+{
+	xUnit = "";
+	yUnit = "";
+	useAntiAliasing = true;
+	margin = 50;
+}
 
 
 

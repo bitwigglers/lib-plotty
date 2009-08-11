@@ -5,9 +5,8 @@ TARGET = plotter
 TEMPLATE = app
 SOURCES += main.cpp \
     plotter.cpp \
-    plotsettings.cpp \
-    plotterprivate.cpp
+    plotsettings.cpp
 HEADERS += plotter.h \
-    plotsettings.h \
-    plotterprivate.h
+	plotter_p.h \
+	plotsettings.h
 RESOURCES += plotter.qrc
