@@ -243,7 +243,7 @@ void Plotter::drawGrid(QPainter *painter)
 	}
 
 	//draw unit string for x axis
-	int unitXPos = rect.right() - 0.5 * rect.width() / settings.numXTicks;
+	int unitXPos = rect.right() - int(0.5 * rect.width() / settings.numXTicks);
 	painter->drawText(unitXPos - 50, rect.bottom() + 5, 100, 15, Qt::AlignHCenter | Qt::AlignTop, d->xUnit);
 
 	//draw y grid and labels
@@ -258,7 +258,7 @@ void Plotter::drawGrid(QPainter *painter)
 		painter->drawText(rect.left() - d->margin, y - 10, d->margin - 5, 20, Qt::AlignRight | Qt::AlignVCenter, QString::number(label));
 	}
 	// draw unit string for y axis
-	int unitYPos = rect.top() + 0.5 * rect.height() / settings.numYTicks;
+	int unitYPos = rect.top() + int(0.5 * rect.height() / settings.numYTicks);
 	painter->drawText(rect.left() - d->margin, unitYPos - 10, d->margin - 5, 20, Qt::AlignRight | Qt::AlignVCenter, d->yUnit);
 
 	painter->drawRect(rect.adjusted(0, 0, -1, -1));
