@@ -2,6 +2,7 @@
 #include <QtGui>
 
 #include "plotter.h"
+#include "plotterprivate.h"
 
 Plotter::Plotter(QWidget *parent)
     : QWidget(parent)

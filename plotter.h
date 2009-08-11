@@ -6,12 +6,14 @@
 #include <cmath>
 
 #include "plotsettings.h"
-#include "plotterprivate.h"
+
 class QPixmap;
 class QRubberBand;
 class QTimer;
 class QToolButton;
 class QWidget;
+
+class PlotterPrivate;
 
 class Plotter : public QWidget
 {
