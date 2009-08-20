@@ -68,6 +68,8 @@ private:
 	void refreshPixmap();
 	void drawGrid(QPainter *painter);
 	void drawCurves(QPainter *painter);
+	void drawPoint(QPainter *painter, QPointF center, PlotCurve::PointStyle style = PlotCurve::PointNone);
+
 
 	QToolButton *zoomInButton;
 	QToolButton *zoomOutButton;

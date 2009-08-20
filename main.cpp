@@ -6,7 +6,7 @@
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
+	QApplication a(argc, argv);
 
 	Plotter plotter;
 	PlotSettings settings;
@@ -34,12 +34,20 @@ int main(int argc, char *argv[])
 
 	PlotCurve c1, c2, c3, c4, c5;
 	c1.setData(v1);
-	c1.setLineStyle(Qt::DotLine);
+	c1.setLineStyle(Qt::DashDotLine);
+	c1.setPointStyle(PlotCurve::PointCircle);
 	c2.setData(v2);
+	c2.setLineStyle(Qt::DashDotDotLine);
+	c2.setPointStyle(PlotCurve::PointTriangleUp);
 	c3.setData(v3);
+	c3.setLineStyle(Qt::DashLine);
+	c3.setPointStyle(PlotCurve::PointTriangleRight);
 	c4.setData(v4);
+	c4.setLineStyle(Qt::DotLine);
+	c4.setPointStyle(PlotCurve::PointTriangleDown);
 	c5.setData(v5);
-plotter.setAntiAliasing(false);
+	c5.setPointStyle(PlotCurve::PointTriangleLeft);
+	//plotter.setAntiAliasing(false);
 	plotter.setCurveData(0, &c1);
 	plotter.setCurveData(1, &c2);
 	plotter.setCurveData(2, &c3);

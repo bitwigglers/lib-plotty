@@ -21,6 +21,16 @@ void PlotCurve::setLineStyle(Qt::PenStyle style)
 	d->lineStyle = style;
 }
 
+PlotCurve::PointStyle PlotCurve::pointStyle()
+{
+	return d->pointStyle;
+}
+
+void PlotCurve::setPointStyle(PlotCurve::PointStyle style)
+{
+	d->pointStyle = style;
+}
+
 QVector<QPointF> PlotCurve::data()
 {
 	return d->data;

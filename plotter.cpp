@@ -301,11 +301,81 @@ void Plotter::drawCurves(QPainter *painter)
 			double y = rect.bottom() - (dy *(rect.height() - 1) / settings.spanY());
 			polyline[j] = QPointF(x, y);
 		}
+		// draw the lines between the points
 		QPen pen(colorForIds[uint(id) % 6]);
 		pen.setStyle(i.value()->lineStyle());
+		pen.setWidth(2);
+		pen.setCosmetic(true);
 		painter->setPen(pen);
 		painter->drawPolyline(polyline);
+
+		// draw the points
+		QPointF point;
+		painter->setBrush(QBrush(colorForIds[uint(id) % 6]));
+		foreach(point, polyline) {
+			drawPoint(painter, point, i.value()->pointStyle());
+		}
 	}
+}
+
+void Plotter::drawPoint(QPainter *painter, QPointF center, PlotCurve::PointStyle style)
+{
+	static const QPointF diamond[4] = {
+		QPointF(0, -5),
+		QPointF(-5, 0),
+		QPointF(0, 5),
+		QPointF(5, 0)
+	};
+
+	static const QPointF triangle[] = {
+		QPointF(0, -5),
+		QPointF(-5, 5),
+		QPointF(5,5)
+	};
+
+	painter->save();
+	switch (style) {
+	case PlotCurve::PointNone:
+		break;
+	case PlotCurve::PointCircle:
+		painter->drawEllipse(center, 5, 5);
+		break;
+	case PlotCurve::PointCross:
+		painter->drawLine(center.x() - 5, center.y(), center.x() + 5, center.y());
+		painter->drawLine(center.x(), center.y() - 5, center.x(), center.y() + 5);
+		break;
+	case PlotCurve::PointXCross:
+		painter->drawLine(center.x() - 5, center.y() - 5, center.x() + 5, center.y() + 5);
+		painter->drawLine(center.x() - 5, center.y() + 5, center.x() + 5, center.y() - 5);
+		break;
+	case PlotCurve::PointDiamond:
+		painter->translate(center);
+		painter->drawPolygon(diamond, 4);
+		break;
+	case PlotCurve::PointBox:
+		painter->drawRect(center.x() - 4, center.y() - 4, 8, 8);
+		break;
+	case PlotCurve::PointTriangleUp:
+		painter->translate(center);
+		painter->drawPolygon(triangle, 3);
+		break;
+	case PlotCurve::PointTriangleRight:
+		painter->translate(center);
+		painter->rotate(90);
+		painter->drawPolygon(triangle, 3);
+		break;
+	case PlotCurve::PointTriangleDown:
+		painter->translate(center);
+		painter->rotate(180);
+		painter->drawPolygon(triangle, 3);
+		break;
+	case PlotCurve::PointTriangleLeft:
+		painter->translate(center);
+		painter->rotate(270);
+		painter->drawPolygon(triangle, 3);
+		break;
+	}
+	painter->restore();
 }
 
 QString Plotter::xUnit()
