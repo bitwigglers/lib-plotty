@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QVector>
 #include <QPointF>
+#include <QColor>
 
 class PlotCurvePrivate;
 
@@ -26,6 +27,8 @@ public:
 	void setPointStyle (PlotCurve::PointStyle style);
 	PlotCurve::CurveStyle curveStyle();
 	void setCurveStyle (PlotCurve::CurveStyle style);
+	QColor& color() const;
+	void setColor(const QColor &color);
 
 	QVector<QPointF> data();
 	void setData(QVector<QPointF> data);

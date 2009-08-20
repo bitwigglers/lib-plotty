@@ -276,9 +276,6 @@ void Plotter::drawGrid(QPainter *painter)
 
 void Plotter::drawCurves(QPainter *painter)
 {
-	static const QColor colorForIds[6] = {
-		Qt::red, Qt::green, Qt::blue, Qt::cyan, Qt::magenta, Qt::yellow};
-
 	PlotSettings settings = zoomStack[curZoom];
 	QRect rect(d->margin, d->margin, width() - 2 * d->margin, height() - 2 * d->margin);
 	if (!rect.isValid())
@@ -302,7 +299,7 @@ void Plotter::drawCurves(QPainter *painter)
 			polyline[j] = QPointF(x, y);
 		}
 		// draw the lines between the points
-		QPen pen(colorForIds[uint(id) % 6]);
+		QPen pen(i.value()->color());
 		pen.setStyle(i.value()->lineStyle());
 		pen.setWidth(2);
 		pen.setCosmetic(true);
@@ -338,7 +335,7 @@ void Plotter::drawCurves(QPainter *painter)
 		}
 
 		// draw the points
-		painter->setBrush(QBrush(colorForIds[uint(id) % 6]));
+		painter->setBrush(i.value()->color());
 		foreach(point, polyline) {
 			drawPoint(painter, point, i.value()->pointStyle());
 		}

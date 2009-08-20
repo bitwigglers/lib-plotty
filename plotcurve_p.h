@@ -10,6 +10,6 @@ public:
 	Qt::PenStyle lineStyle;
 	PlotCurve::PointStyle pointStyle;
 	PlotCurve::CurveStyle curveStyle;
-
+	QColor color;
 	QVector<QPointF> data;
 };

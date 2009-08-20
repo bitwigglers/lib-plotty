@@ -51,6 +51,17 @@ void PlotCurve::setData(QVector<QPointF> data)
 	d->data = data;
 }
 
+QColor& PlotCurve::color() const
+{
+	return d->color;
+}
+
+void PlotCurve::setColor(const QColor &color)
+{
+	d->color = color;
+}
+
+
 /************************************************/
 
 PlotCurvePrivate::PlotCurvePrivate()
@@ -58,4 +69,5 @@ PlotCurvePrivate::PlotCurvePrivate()
 	lineStyle = Qt::SolidLine;
 	pointStyle = PlotCurve::PointNone;
 	curveStyle = PlotCurve::CurveNormal;
+	color = Qt::red;
 }
