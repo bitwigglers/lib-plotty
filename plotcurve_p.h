@@ -9,6 +9,7 @@ public:
 	PlotCurvePrivate();
 	Qt::PenStyle lineStyle;
 	PlotCurve::PointStyle pointStyle;
+	PlotCurve::CurveStyle curveStyle;
 
 	QVector<QPointF> data;
 };

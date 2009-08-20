@@ -307,10 +307,37 @@ void Plotter::drawCurves(QPainter *painter)
 		pen.setWidth(2);
 		pen.setCosmetic(true);
 		painter->setPen(pen);
-		painter->drawPolyline(polyline);
+
+		double baseLine = rect.bottom() - (-settings.minY *(rect.height() - 1) / settings.spanY());
+		QPointF point;
+		switch(i.value()->curveStyle()) {
+		case PlotCurve::CurveNormal:
+			painter->drawPolyline(polyline);
+			break;
+		case PlotCurve::CurveSticks:
+			foreach(point, polyline)
+				painter->drawLine(point.x(), rect.bottom(), point.x(), point.y());
+			break;
+		case PlotCurve::CurveOriginSticks:
+			painter->drawLine(polyline.first().x(), baseLine, polyline.last().x(), baseLine);
+			foreach(point, polyline)
+				painter->drawLine(point.x(), baseLine, point.x(), point.y());
+			break;
+		case PlotCurve::CurveStairCase:
+			QVectorIterator<QPointF> it(polyline);
+			while (it.hasNext()) {
+				QPointF p1 = it.next(), p2;
+				if (it.hasNext())
+					p2 = it.peekNext();
+				else
+					p2 = p1;
+				painter->drawLine(p1.x(), p1.y(), p2.x(), p1.y());
+				painter->drawLine(p2.x(), p1.y(), p2.x(), p2.y());
+			}
+			break;
+		}
 
 		// draw the points
-		QPointF point;
 		painter->setBrush(QBrush(colorForIds[uint(id) % 6]));
 		foreach(point, polyline) {
 			drawPoint(painter, point, i.value()->pointStyle());

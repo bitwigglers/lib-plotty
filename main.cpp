@@ -36,12 +36,15 @@ int main(int argc, char *argv[])
 	c1.setData(v1);
 	c1.setLineStyle(Qt::DashDotLine);
 	c1.setPointStyle(PlotCurve::PointCircle);
+	c1.setCurveStyle(PlotCurve::CurveSticks);
 	c2.setData(v2);
 	c2.setLineStyle(Qt::DashDotDotLine);
 	c2.setPointStyle(PlotCurve::PointTriangleUp);
+	c2.setCurveStyle(PlotCurve::CurveStairCase);
 	c3.setData(v3);
 	c3.setLineStyle(Qt::DashLine);
 	c3.setPointStyle(PlotCurve::PointTriangleRight);
+	c3.setCurveStyle(PlotCurve::CurveOriginSticks);
 	c4.setData(v4);
 	c4.setLineStyle(Qt::DotLine);
 	c4.setPointStyle(PlotCurve::PointTriangleDown);
