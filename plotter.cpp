@@ -67,9 +67,9 @@ void Plotter::zoomIn()
 	}
 }
 
-void Plotter::setCurveData(int id, const QVector<QPointF> &data)
+void Plotter::setCurveData(int id, PlotCurve *curve)
 {
-	curveMap[id] = data;
+	curveMap[id] = curve;
 	refreshPixmap();
 }
 
@@ -286,12 +286,12 @@ void Plotter::drawCurves(QPainter *painter)
 
 	painter->setClipRect(rect.adjusted(+1, +1, -1, -1));
 
-	QMapIterator<int, QVector<QPointF> > i(curveMap);
+	QMapIterator<int, PlotCurve*> i(curveMap);
 	while (i.hasNext()) {
 		i.next();
 
 		int id = i.key();
-		const QVector<QPointF> &data = i.value();
+		const QVector<QPointF> &data = i.value()->data();
 		QPolygonF polyline(data.count());
 
 		for (int j = 0; j < data.count(); ++j) {
@@ -301,7 +301,9 @@ void Plotter::drawCurves(QPainter *painter)
 			double y = rect.bottom() - (dy *(rect.height() - 1) / settings.spanY());
 			polyline[j] = QPointF(x, y);
 		}
-		painter->setPen(colorForIds[uint(id) % 6]);
+		QPen pen(colorForIds[uint(id) % 6]);
+		pen.setStyle(i.value()->lineStyle());
+		painter->setPen(pen);
 		painter->drawPolyline(polyline);
 	}
 }

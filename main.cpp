@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
 
 	QVector<QPointF> v1, v2, v3, v4, v5;
 
-	for (int i = -359; i < 360; i++) {
+	for (int i = -360; i < 360; i+=10) {
 		double x = i * M_PI / 180;
 		double y = sin(x);
 		v1.append(QPointF(x, y));
@@ -32,11 +32,19 @@ int main(int argc, char *argv[])
 		v5.append(QPointF(x, y));
 	}
 
-	plotter.setCurveData(0, v1);
-	plotter.setCurveData(1, v2);
-	plotter.setCurveData(2, v3);
-	plotter.setCurveData(3, v4);
-	plotter.setCurveData(4, v5);
+	PlotCurve c1, c2, c3, c4, c5;
+	c1.setData(v1);
+	c1.setLineStyle(Qt::DotLine);
+	c2.setData(v2);
+	c3.setData(v3);
+	c4.setData(v4);
+	c5.setData(v5);
+plotter.setAntiAliasing(false);
+	plotter.setCurveData(0, &c1);
+	plotter.setCurveData(1, &c2);
+	plotter.setCurveData(2, &c3);
+	plotter.setCurveData(3, &c4);
+	plotter.setCurveData(4, &c5);
 
 	plotter.setXUnit("s");
 	plotter.setYUnit("V");

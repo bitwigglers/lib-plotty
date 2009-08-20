@@ -6,6 +6,7 @@
 #include <cmath>
 
 #include "plotsettings.h"
+#include "plotcurve.h"
 
 class QPixmap;
 class QRubberBand;
@@ -30,7 +31,7 @@ public:
 	~Plotter();
 
 	void setPlotSettings(const PlotSettings &settings);
-	void setCurveData(int id, const QVector<QPointF>&data);
+	void setCurveData(int id, PlotCurve *curve);
 	void clearCurve(int id);
 	QSize minimumSizeHint() const;
 	QSize sizeHint() const;
@@ -70,7 +71,7 @@ private:
 
 	QToolButton *zoomInButton;
 	QToolButton *zoomOutButton;
-	QMap<int, QVector<QPointF> > curveMap;
+	QMap<int, PlotCurve*> curveMap;
 	QVector<PlotSettings> zoomStack;
 	int curZoom;
 
