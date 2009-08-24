@@ -287,7 +287,6 @@ void Plotter::drawCurves(QPainter *painter)
 	while (i.hasNext()) {
 		i.next();
 
-		int id = i.key();
 		const QVector<QPointF> &data = i.value()->data();
 		QPolygonF polyline(data.count());
 
@@ -314,12 +313,12 @@ void Plotter::drawCurves(QPainter *painter)
 			break;
 		case PlotCurve::CurveSticks:
 			foreach(point, polyline)
-				painter->drawLine(point.x(), rect.bottom(), point.x(), point.y());
+				painter->drawLine(QLineF(point.x(), rect.bottom(), point.x(), point.y()));
 			break;
 		case PlotCurve::CurveBaseLineSticks:
-			painter->drawLine(polyline.first().x(), baseLine, polyline.last().x(), baseLine);
+			painter->drawLine(QLineF(polyline.first().x(), baseLine, polyline.last().x(), baseLine));
 			foreach(point, polyline)
-				painter->drawLine(point.x(), baseLine, point.x(), point.y());
+				painter->drawLine(QLineF(point.x(), baseLine, point.x(), point.y()));
 			break;
 		case PlotCurve::CurveStairCase:
 			QVectorIterator<QPointF> it(polyline);
@@ -329,8 +328,8 @@ void Plotter::drawCurves(QPainter *painter)
 					p2 = it.peekNext();
 				else
 					p2 = p1;
-				painter->drawLine(p1.x(), p1.y(), p2.x(), p1.y());
-				painter->drawLine(p2.x(), p1.y(), p2.x(), p2.y());
+				painter->drawLine(QLineF(p1.x(), p1.y(), p2.x(), p1.y()));
+				painter->drawLine(QLineF(p2.x(), p1.y(), p2.x(), p2.y()));
 			}
 			break;
 		}
@@ -366,19 +365,19 @@ void Plotter::drawPoint(QPainter *painter, QPointF center, PlotCurve::PointStyle
 		painter->drawEllipse(center, 5, 5);
 		break;
 	case PlotCurve::PointCross:
-		painter->drawLine(center.x() - 5, center.y(), center.x() + 5, center.y());
-		painter->drawLine(center.x(), center.y() - 5, center.x(), center.y() + 5);
+		painter->drawLine(QLineF(center.x() - 5, center.y(), center.x() + 5, center.y()));
+		painter->drawLine(QLineF(center.x(), center.y() - 5, center.x(), center.y() + 5));
 		break;
 	case PlotCurve::PointXCross:
-		painter->drawLine(center.x() - 5, center.y() - 5, center.x() + 5, center.y() + 5);
-		painter->drawLine(center.x() - 5, center.y() + 5, center.x() + 5, center.y() - 5);
+		painter->drawLine(QLineF(center.x() - 5, center.y() - 5, center.x() + 5, center.y() + 5));
+		painter->drawLine(QLineF(center.x() - 5, center.y() + 5, center.x() + 5, center.y() - 5));
 		break;
 	case PlotCurve::PointDiamond:
 		painter->translate(center);
 		painter->drawPolygon(diamond, 4);
 		break;
 	case PlotCurve::PointBox:
-		painter->drawRect(center.x() - 4, center.y() - 4, 8, 8);
+		painter->drawRect(QRectF(center.x() - 4, center.y() - 4, 8, 8));
 		break;
 	case PlotCurve::PointTriangleUp:
 		painter->translate(center);
