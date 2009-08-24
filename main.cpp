@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 	c3.setData(v3);
 	c3.setLineStyle(Qt::DashLine);
 	c3.setPointStyle(PlotCurve::PointTriangleRight);
-	c3.setCurveStyle(PlotCurve::CurveOriginSticks);
+	c3.setCurveStyle(PlotCurve::CurveBaseLineSticks);
 	c3.setColor(QColor(0, 255, 0, 127));
 	c4.setData(v4);
 	c4.setLineStyle(Qt::DotLine);

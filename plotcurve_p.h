@@ -12,4 +12,5 @@ public:
 	PlotCurve::CurveStyle curveStyle;
 	QColor color;
 	QVector<QPointF> data;
+	double baseLine;
 };

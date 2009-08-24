@@ -305,7 +305,8 @@ void Plotter::drawCurves(QPainter *painter)
 		pen.setCosmetic(true);
 		painter->setPen(pen);
 
-		double baseLine = rect.bottom() - (-settings.minY *(rect.height() - 1) / settings.spanY());
+		double baseLine = i.value()->baseLine() - settings.minY;
+		baseLine = rect.bottom() - (baseLine * (rect.height() - 1) / settings.spanY());
 		QPointF point;
 		switch(i.value()->curveStyle()) {
 		case PlotCurve::CurveNormal:
@@ -315,7 +316,7 @@ void Plotter::drawCurves(QPainter *painter)
 			foreach(point, polyline)
 				painter->drawLine(point.x(), rect.bottom(), point.x(), point.y());
 			break;
-		case PlotCurve::CurveOriginSticks:
+		case PlotCurve::CurveBaseLineSticks:
 			painter->drawLine(polyline.first().x(), baseLine, polyline.last().x(), baseLine);
 			foreach(point, polyline)
 				painter->drawLine(point.x(), baseLine, point.x(), point.y());

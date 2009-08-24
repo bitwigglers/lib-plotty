@@ -19,7 +19,7 @@ public:
 
 	enum PointStyle{PointNone, PointCircle, PointCross, PointXCross, PointDiamond, PointBox,
 					PointTriangleUp, PointTriangleRight, PointTriangleDown, PointTriangleLeft};
-	enum CurveStyle{CurveNormal, CurveSticks, CurveOriginSticks, CurveStairCase};
+	enum CurveStyle{CurveNormal, CurveSticks, CurveBaseLineSticks, CurveStairCase};
 
 	Qt::PenStyle lineStyle();
 	void setLineStyle (Qt::PenStyle style);
@@ -29,6 +29,8 @@ public:
 	void setCurveStyle (PlotCurve::CurveStyle style);
 	QColor& color() const;
 	void setColor(const QColor &color);
+	double baseLine();
+	void setBaseLine(double y);
 
 	QVector<QPointF> data();
 	void setData(QVector<QPointF> data);

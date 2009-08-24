@@ -61,6 +61,15 @@ void PlotCurve::setColor(const QColor &color)
 	d->color = color;
 }
 
+double PlotCurve::baseLine()
+{
+	return d->baseLine;
+}
+
+void PlotCurve::setBaseLine(double y)
+{
+	d->baseLine = y;
+}
 
 /************************************************/
 
@@ -70,4 +79,5 @@ PlotCurvePrivate::PlotCurvePrivate()
 	pointStyle = PlotCurve::PointNone;
 	curveStyle = PlotCurve::CurveNormal;
 	color = Qt::red;
+	baseLine = 0.0;
 }
