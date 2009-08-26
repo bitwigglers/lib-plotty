@@ -70,6 +70,7 @@ private:
 	void drawCurves(QPainter *painter);
 	void drawPoint(QPainter *painter, QPointF center, PlotCurve::PointStyle style = PlotCurve::PointNone);
 
+	QPolygonF clipPolyline(QRectF r, QPolygonF poly);
 
 	QToolButton *zoomInButton;
 	QToolButton *zoomOutButton;

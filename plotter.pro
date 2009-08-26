@@ -6,10 +6,12 @@ TEMPLATE = app
 SOURCES += main.cpp \
     plotter.cpp \
     plotsettings.cpp \
-    plotcurve.cpp
+    plotcurve.cpp \
+    clipper.cpp
 HEADERS += plotter.h \
     plotter_p.h \
     plotsettings.h \
     plotcurve.h \
-    plotcurve_p.h
+    plotcurve_p.h \
+    clipper.h
 RESOURCES += plotter.qrc

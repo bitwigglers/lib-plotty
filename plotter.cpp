@@ -4,6 +4,8 @@
 #include "plotter.h"
 #include "plotter_p.h"
 
+#include "clipper.h"
+
 Plotter::Plotter(QWidget *parent)
     : QWidget(parent)
 {
@@ -297,6 +299,11 @@ void Plotter::drawCurves(QPainter *painter)
 			double y = rect.bottom() - (dy *(rect.height() - 1) / settings.spanY());
 			polyline[j] = QPointF(x, y);
 		}
+
+		polyline = Clipper::clipPolygonF(rect, polyline);
+		if (polyline.isEmpty())
+			continue;
+
 		// draw the lines between the points
 		QPen pen(i.value()->color());
 		pen.setStyle(i.value()->lineStyle());
@@ -458,6 +465,10 @@ void Plotter::setMargin(uint margin)
 	refreshPixmap();
 }
 
+QPolygonF Plotter::clipPolyline(QRectF r, QPolygonF poly)
+{
+	return Clipper::clipPolygonF(r, poly);
+}
 
 /************************************************************/
 

@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
 
 	QVector<QPointF> v1, v2, v3, v4, v5;
 
-	for (int i = -360; i < 360; i+=10) {
+	for (int i = -360; i < 360; i+=1) {
 		double x = i * M_PI / 180;
 		double y = sin(x);
 		v1.append(QPointF(x, y));
@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 	c1.setData(v1);
 	c1.setLineStyle(Qt::DashDotLine);
 	c1.setPointStyle(PlotCurve::PointCircle);
-	c1.setCurveStyle(PlotCurve::CurveSticks);
+	//c1.setCurveStyle(PlotCurve::CurveSticks);
 	c1.setColor(QColor(255, 0, 0, 127));
 	c2.setData(v2);
 	c2.setLineStyle(Qt::DashDotDotLine);
