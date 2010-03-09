@@ -2,46 +2,43 @@
 #include "plotter.h"
 
 #include <cmath>
-
+#include <QDebug>
+#include <QTimer>
 
 int main(int argc, char *argv[])
 {
-	QApplication a(argc, argv);
+	QApplication app(argc, argv);
 
 	Plotter plotter;
 	PlotSettings settings;
-	settings.minY = -2;
-	settings.maxY = 2;
-	settings.minX = -2 * M_PI;
-	settings.maxX = 2 * M_PI;
+	settings.minY = - 5 * 360;
+	settings.maxY = 5 * 360;
+	settings.minX = 5 * -360;
+	settings.maxX = 5 * 360;
 	plotter.setPlotSettings(settings);
 
 	QVector<QPointF> v1, v2, v3, v4, v5;
+	double a = 50;
+	for (int i = 0; i < 5 * 360; i+=10) {
+		double alpha = i * 3.14159 / 180;
+		double r1 = a * alpha;
+		double r2 = 5*a * pow(alpha, 1.0 / 2.0);
+		qDebug() << r2;
 
-	for (int i = -360; i < 360; i+=1) {
-		double x = i * M_PI / 180;
-		double y = sin(x);
-		v1.append(QPointF(x, y));
-		y += 1.0/3.0 * sin(3.0 * x);
-		v2.append(QPointF(x, y));
-		y += 1.0/5.0 * sin(5.0 * x);
-		v3.append(QPointF(x, y));
-		y += 1.0/7.0 * sin(7.0 * x);
-		v4.append(QPointF(x, y));
-		y += 1.0/9.0 * sin(9.0 * x);
-		v5.append(QPointF(x, y));
+		v1 << QPointF(r1 * sin(alpha), r1 * cos(alpha));
+		v2 << QPointF(r2 * sin(alpha), r2 * cos(alpha));
 	}
 
 	PlotCurve c1, c2, c3, c4, c5;
 	c1.setData(v1);
-	c1.setLineStyle(Qt::DashDotLine);
+	//c1.setLineStyle(Qt::DashDotLine);
 	c1.setPointStyle(PlotCurve::PointCircle);
 	//c1.setCurveStyle(PlotCurve::CurveSticks);
 	c1.setColor(QColor(255, 0, 0, 127));
 	c2.setData(v2);
-	c2.setLineStyle(Qt::DashDotDotLine);
-	c2.setPointStyle(PlotCurve::PointTriangleUp);
-	c2.setCurveStyle(PlotCurve::CurveStairCase);
+	//c2.setLineStyle(Qt::DashDotDotLine);
+	c2.setPointStyle(PlotCurve::PointCircle);
+	//c2.setCurveStyle(PlotCurve::CurveStairCase);
 	c2.setColor(QColor(255, 255, 0, 127));
 	c3.setData(v3);
 	c3.setLineStyle(Qt::DashLine);
@@ -64,7 +61,11 @@ int main(int argc, char *argv[])
 
 	plotter.setXUnit("s");
 	plotter.setYUnit("V");
+
+	QTimer t;
+	QObject::connect(&t, SIGNAL(timeout()), &plotter, SLOT(rotateData()));
+	t.start(100);
 	plotter.show();
 
-	return a.exec();
+	return app.exec();
 }

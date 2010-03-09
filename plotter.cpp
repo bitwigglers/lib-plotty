@@ -7,7 +7,7 @@
 #include "clipper.h"
 
 Plotter::Plotter(QWidget *parent)
-    : QWidget(parent)
+	: QWidget(parent)
 {
 	d = new PlotterPrivate();
 
@@ -30,6 +30,7 @@ Plotter::Plotter(QWidget *parent)
 	connect(zoomOutButton, SIGNAL(clicked()), this, SLOT(zoomOut()));
 
 	setPlotSettings(PlotSettings());
+	rotAngle = 0;
 }
 
 Plotter::~Plotter()
@@ -285,6 +286,10 @@ void Plotter::drawCurves(QPainter *painter)
 
 	painter->setClipRect(rect.adjusted(+1, +1, -1, -1));
 
+	painter->translate(width() / 2, height() / 2);
+	painter->rotate(rotAngle);
+	painter->translate(-width() / 2, -height() / 2);
+
 	QMapIterator<int, PlotCurve*> i(curveMap);
 	while (i.hasNext()) {
 		i.next();
@@ -468,6 +473,13 @@ void Plotter::setMargin(uint margin)
 QPolygonF Plotter::clipPolyline(QRectF r, QPolygonF poly)
 {
 	return Clipper::clipPolygonF(r, poly);
+}
+
+void Plotter::rotateData()
+{
+	rotAngle += 10;
+	rotAngle %= 360;
+	refreshPixmap();
 }
 
 /************************************************************/

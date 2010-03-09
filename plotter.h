@@ -53,7 +53,8 @@ public:
 public slots:
 	void zoomIn();
 	void zoomOut();
-	void updatePlot();
+	void updatePlot();	
+	void rotateData();
 
 protected:
 	void paintEvent(QPaintEvent *event);
@@ -84,6 +85,8 @@ private:
 	QPixmap pixmap;
 
 	PlotterPrivate *d;
+
+	int rotAngle;
 };
 
 
