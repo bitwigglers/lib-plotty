@@ -1,5 +1,5 @@
 #include <QtGui/QApplication>
-#include "plotter.h"
+#include <plotter.h>
 
 #include <cmath>
 #include <QDebug>
@@ -31,14 +31,14 @@ int main(int argc, char *argv[])
 
 	PlotCurve c1, c2, c3, c4, c5;
 	c1.setData(v1);
-	//c1.setLineStyle(Qt::DashDotLine);
+	c1.setLineStyle(Qt::DashDotLine);
 	c1.setPointStyle(PlotCurve::PointCircle);
-	//c1.setCurveStyle(PlotCurve::CurveSticks);
+	c1.setCurveStyle(PlotCurve::CurveSticks);
 	c1.setColor(QColor(255, 0, 0, 127));
 	c2.setData(v2);
-	//c2.setLineStyle(Qt::DashDotDotLine);
+	c2.setLineStyle(Qt::DashDotDotLine);
 	c2.setPointStyle(PlotCurve::PointCircle);
-	//c2.setCurveStyle(PlotCurve::CurveStairCase);
+	c2.setCurveStyle(PlotCurve::CurveStairCase);
 	c2.setColor(QColor(255, 255, 0, 127));
 	c3.setData(v3);
 	c3.setLineStyle(Qt::DashLine);
@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 
 	QTimer t;
 	QObject::connect(&t, SIGNAL(timeout()), &plotter, SLOT(rotateData()));
-	t.start(100);
+	//t.start(100);
 	plotter.show();
 
 	return app.exec();
