@@ -6,12 +6,12 @@
 class PlotterPrivate
 {
 public:
-	PlotterPrivate();
-	QString xUnit;
-	QString yUnit;
+    PlotterPrivate();
+    QString xUnit;
+    QString yUnit;
 
-	bool useAntiAliasing;
-	uint margin;
+    bool useAntiAliasing;
+    uint margin;
 };
 
 #endif // PLOTTERPRIVATE_H

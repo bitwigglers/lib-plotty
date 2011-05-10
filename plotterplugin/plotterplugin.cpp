@@ -5,7 +5,7 @@
 #include <QtPlugin>
 
 PlotterPlugin::PlotterPlugin(QObject *parent)
-        : QObject(parent)
+    : QObject(parent)
 {
     initialized = false;
 }
@@ -25,7 +25,7 @@ bool PlotterPlugin::isInitialized() const
 
 QWidget *PlotterPlugin::createWidget(QWidget *parent)
 {
-	return new Plotter(parent);
+    return new Plotter(parent);
 }
 
 QString PlotterPlugin::name() const
@@ -40,7 +40,7 @@ QString PlotterPlugin::group() const
 
 QIcon PlotterPlugin::icon() const
 {
-	return QIcon(":/images/kmplot.png");
+    return QIcon(":/images/kmplot.png");
 }
 
 QString PlotterPlugin::toolTip() const
@@ -61,21 +61,21 @@ bool PlotterPlugin::isContainer() const
 QString PlotterPlugin::domXml() const
 {
     return "<widget class=\"Plotter\" name=\"plotter\">\n"
-           " <property name=\"geometry\">\n"
-           "  <rect>\n"
-           "   <x>0</x>\n"
-           "   <y>0</y>\n"
-           "   <width>400</width>\n"
-           "   <height>300</height>\n"
-           "  </rect>\n"
-           " </property>\n"
-           " <property name=\"toolTip\" >\n"
-		   "  <string>a data plotter widget</string>\n"
-           " </property>\n"
-           " <property name=\"whatsThis\" >\n"
-		   "  <string>a data plotter widget</string>\n"
-           " </property>\n"
-           " </widget>\n";
+            " <property name=\"geometry\">\n"
+            "  <rect>\n"
+            "   <x>0</x>\n"
+            "   <y>0</y>\n"
+            "   <width>400</width>\n"
+            "   <height>300</height>\n"
+            "  </rect>\n"
+            " </property>\n"
+            " <property name=\"toolTip\" >\n"
+            "  <string>a data plotter widget</string>\n"
+            " </property>\n"
+            " <property name=\"whatsThis\" >\n"
+            "  <string>a data plotter widget</string>\n"
+            " </property>\n"
+            " </widget>\n";
 }
 
 QString PlotterPlugin::includeFile() const

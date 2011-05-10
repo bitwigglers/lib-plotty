@@ -28,8 +28,8 @@
 class Clipper
 {
 public:
-	static QPolygon clipPolygon(const QRect &, const QPolygon &);
-	static QPolygonF clipPolygonF(const QRectF &, const QPolygonF &);
+    static QPolygon clipPolygon(const QRect &, const QPolygon &);
+    static QPolygonF clipPolygonF(const QRectF &, const QPolygonF &);
 };
 
 #endif

@@ -6,11 +6,11 @@
 class PlotCurvePrivate
 {
 public:
-	PlotCurvePrivate();
-	Qt::PenStyle lineStyle;
-	PlotCurve::PointStyle pointStyle;
-	PlotCurve::CurveStyle curveStyle;
-	QColor color;
-	QVector<QPointF> data;
-	double baseLine;
+    PlotCurvePrivate();
+    Qt::PenStyle lineStyle;
+    PlotCurve::PointStyle pointStyle;
+    PlotCurve::CurveStyle curveStyle;
+    QColor color;
+    QVector<QPointF> data;
+    double baseLine;
 };
