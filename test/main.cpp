@@ -4,12 +4,22 @@
 #include <cmath>
 #include <QDebug>
 #include <QTimer>
+#include <QGradient>
 
 int main(int argc, char *argv[])
 {
 	QApplication app(argc, argv);
 
 	Plotter plotter;
+
+        QLinearGradient gradient(plotter.geometry().topLeft(), plotter.geometry().bottomRight());
+        gradient.setColorAt(0, Qt::lightGray);
+        gradient.setColorAt(1, Qt::darkGray);
+        QBrush brush(gradient);
+        QPalette palette = plotter.palette();
+        palette.setBrush(QPalette::Dark, brush);
+        plotter.setPalette(palette);
+
 	PlotSettings settings;
         settings.minY = -2;
         settings.maxY = 2;
