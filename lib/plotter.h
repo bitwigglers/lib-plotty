@@ -54,7 +54,6 @@ public slots:
 	void zoomIn();
 	void zoomOut();
 	void updatePlot();	
-	void rotateData();
 
 protected:
 	void paintEvent(QPaintEvent *event);

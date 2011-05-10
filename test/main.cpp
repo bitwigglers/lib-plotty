@@ -62,10 +62,7 @@ int main(int argc, char *argv[])
 	plotter.setXUnit("s");
 	plotter.setYUnit("V");
 
-	QTimer t;
-	QObject::connect(&t, SIGNAL(timeout()), &plotter, SLOT(rotateData()));
-	//t.start(100);
-	plotter.show();
+        plotter.show();
 
 	return app.exec();
 }
