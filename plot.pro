@@ -1,5 +1,5 @@
 TEMPLATE = subdirs
 SUBDIRS = lib \
-	  test \
+	  example \
 	  plotterplugin
 
