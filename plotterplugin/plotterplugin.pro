@@ -1,17 +1,17 @@
-CONFIG += designer \
-    plugin \
-    release
+CONFIG += designer plugi
+
 TARGET = $$qtLibraryTarget($$TARGET)
 TEMPLATE = lib
 
 INCLUDEPATH += ../lib
 
+qtAddLibrary(plotty)
 debug{
-        LIBS += -L../lib/debug -lplotty
+    LIBS += -L../lib/debug/
 }
 
-release{
-        LIBS += -L../lib/release -lplotty
+release {
+    LIBS += -L../lib/release/
 }
 
 QTDIR_build:DESTDIR = $$QT_BUILD_TREE/plugins/designer

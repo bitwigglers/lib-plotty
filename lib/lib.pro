@@ -1,5 +1,6 @@
-TARGET = plotty
 TEMPLATE = lib
+TARGET = $$qtLibraryTarget(plotty)
+
 SOURCES += plotter.cpp \
     plotsettings.cpp \
     plotcurve.cpp \
