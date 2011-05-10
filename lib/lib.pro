@@ -1,4 +1,4 @@
-TARGET = plotlib
+TARGET = plotty
 TEMPLATE = lib
 SOURCES += plotter.cpp \
     plotsettings.cpp \

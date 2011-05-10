@@ -7,11 +7,11 @@ TEMPLATE = lib
 INCLUDEPATH += ../lib
 
 debug{
-        LIBS += -L../lib/debug -lplotlib
+        LIBS += -L../lib/debug -lplotty
 }
 
 release{
-        LIBS += -L../lib/release -lplotlib
+        LIBS += -L../lib/release -lplotty
 }
 
 QTDIR_build:DESTDIR = $$QT_BUILD_TREE/plugins/designer
