@@ -10,11 +10,6 @@
 //#include "qwt_math.h"
 #include "clipper.h"
 
-static inline QRectF boundingRect(const QPolygonF &polygon)
-{
-    return polygon.boundingRect();
-}
-
 enum Edge
 {
     Left,
@@ -200,7 +195,7 @@ inline void PolygonClipperF::addPoint(QPolygonF &pa, uint pos, const QPointF &po
 //! Sutherland-Hodgman polygon clipping
 QPolygonF PolygonClipperF::clipPolygon(const QPolygonF &pa) const
 {
-    if ( contains( ::boundingRect(pa) ) )
+    if ( contains( pa.boundingRect()) )
         return pa;
 
     QPolygonF cpa(pa.size());
